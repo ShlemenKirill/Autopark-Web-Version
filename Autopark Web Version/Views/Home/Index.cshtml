@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Autopark_Web_Version.Models.Venicles>
+@{
+    ViewData["Title"] = "AutoPark";
+}
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a asp-controller="Home" asp-action="Create">Add</a>
+</p>
+<table class="table">
+    <tr>
+        <th>VenicleId</th>
+        <th>VenicleType</th>
+        <th>Engine</th>
+        <th>ModelName</th>
+        <th>RegistrationNumber</th>
+        <th>Weight</th>
+        <th>Year</th>
+        <th>Color</th>
+        <th>Mileage</th>
+        <th>Tank</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.VenicleId</td>
+    <td>@item.VeniclesTypeId</td>
+    <td>@item.Engine</td>
+    <td>@item.ModelName</td>
+    <td>@item.RegistrationNumber</td>
+    <td>@item.Weight</td>
+    <td>@item.Year</td>
+    <td>@item.Color</td>
+    <td>@item.Mileage</td>
+    <td>@item.Tank</td>
+    <td>
+        <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.VenicleId">Change</a> |
+        <a asp-controller="Home" asp-action="Delete" asp-route-id="@item.VenicleId">Delete</a>
+    </td>
+</tr>
+    }
+</table>
