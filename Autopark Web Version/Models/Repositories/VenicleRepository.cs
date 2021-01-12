@@ -12,62 +12,89 @@ namespace Autopark_Web_Version.Models.Repositories
 {
     public class VenicleRepository : IRepository<Venicles>
     {
-        string connectionString = null;
-        public VenicleRepository(string conn)
+        readonly IDbConnection connection = null;
+        public VenicleRepository(string dbConnection)
         {
-            connectionString = conn;
-        }
-        public List<Venicles> GetAll()
-        {
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                return db.Query<Venicles>("SELECT * FROM Venicles").ToList();
-            }
-        }
-        public void Create(Venicles entity)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                var sqlQuery = "INSERT INTO Venicles (VeniclesTypeId, Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank) " +
-                    "VALUES(@VeniclesTypeId, @Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank)";
-                db.Execute(sqlQuery, entity);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                var sqlQuery = "DELETE FROM Venicles WHERE VenicleId = @id";
-                db.Execute(sqlQuery, new { id });
-            }
-        }
-
-        public Venicles Get(int id)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                return db.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();
-            }
+            connection = new SqlConnection(dbConnection);
         }
         
-        public void Update(Venicles entity)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                var sqlQuery = "UPDATE Venicles SET " +
-                    "VeniclesTypeId = @VeniclesTypeId, " +
-                    "Engine = @Engine, " +
-                    "ModelName = @ModelName, " +
-                    "RegistrationNumber = @RegistrationNumber, " +
-                    "Weight = @Weight, " +
-                    "Year = @Year, " +
-                    "Color = @Color, " +
-                    "Mileage = @Mileage, " +
-                    "Tank = @Tank " +
-                    "WHERE VenicleId = @VenicleId";                
-                db.Execute(sqlQuery, entity);                
-            }
+        public  List<Venicles> GetAll()
+        {            
+            return connection.Query<Venicles>("SELECT * FROM Venicles").ToList();
+            
         }
+        public  void Create(Venicles entity)
+        {
+            
+            var sqlQuery = $"INSERT INTO Venicles (VeniclesTypeId, Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank) " +
+                            "VALUES(@VeniclesTypeId, @Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank)";
+            connection.Execute(sqlQuery, entity);
+            
+        }
+
+        public  void Delete(int id)
+        {
+            
+            var sqlQuery = "DELETE FROM Venicles WHERE VenicleId = @id";
+            connection.Execute(sqlQuery, new { id });
+            
+        }
+
+        public  Venicles Get(int id)
+        {
+            
+            return connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();
+            
+        }
+        
+        public  void Update(Venicles entity)
+        {
+            
+            var sqlQuery = "UPDATE Venicles SET " +
+                            "VeniclesTypeId = @VeniclesTypeId, " +
+                            "Engine = @Engine, " +
+                            "ModelName = @ModelName, " +
+                            "RegistrationNumber = @RegistrationNumber, " +
+                            "Weight = @Weight, " +
+                            "Year = @Year, " +
+                            "Color = @Color, " +
+                            "Mileage = @Mileage, " +
+                            "Tank = @Tank " +
+                            "WHERE VenicleId = @VenicleId";
+            connection.Execute(sqlQuery, entity);                
+            
+        }
+
+        #region Disposable
+
+        private bool _disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposedValue)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                connection.Dispose();
+            }
+
+            _disposedValue = true;
+        }
+
+        ~VenicleRepository()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion Disposable
     }
 }
