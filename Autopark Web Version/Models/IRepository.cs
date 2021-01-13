@@ -12,5 +12,6 @@ namespace Autopark_Web_Version.Models
         TEntity Get(int id);
         List<TEntity> GetAll();
         void Update(TEntity entity);
+        public List<Venicles> SortBy(string order);
     }
 }

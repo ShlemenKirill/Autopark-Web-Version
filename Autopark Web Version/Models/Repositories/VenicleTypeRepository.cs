@@ -43,6 +43,10 @@ namespace Autopark_Web_Version.Models.Repositories
             var sqlQuery = "UPDATE Users SET Name = @Name, Age = @Age WHERE Id = @Id";
             connection.Execute(sqlQuery, entity);
         }
+        public List<Venicles> SortBy(string order) 
+        {
+            return new List<Venicles>();
+        }
 
         #region Disposable
 

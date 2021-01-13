@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Linq;
+using System.Collections;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
@@ -65,6 +66,18 @@ namespace Autopark_Web_Version.Models.Repositories
             
         }
 
+        public List<Venicles> SortBy(string order)
+        {
+            //var sortedList = connection.Query<Venicles>("SELECT * FROM Venicles");
+            //if (order != null)
+            //{
+            //    sortedList = connection.Query<Venicles>($"SELECT * FROM Venicles ORDER BY {order}");
+            //}            
+            return connection.Query<Venicles>($"SELECT * FROM Venicles ORDER BY {order}").ToList();
+                
+            
+        }
+
         #region Disposable
 
         private bool _disposedValue;
@@ -82,7 +95,7 @@ namespace Autopark_Web_Version.Models.Repositories
             }
 
             _disposedValue = true;
-        }
+        }        
 
         ~VenicleRepository()
         {
@@ -94,6 +107,8 @@ namespace Autopark_Web_Version.Models.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        
 
         #endregion Disposable
     }
