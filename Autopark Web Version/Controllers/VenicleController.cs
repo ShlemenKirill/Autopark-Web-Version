@@ -15,9 +15,25 @@ namespace Autopark_Web_Version.Controllers
             repo = r;
         }
 
-        public ActionResult Index()
-        {
-            return View(repo.GetAll());
+        public ActionResult Index(string sortParam)
+        {            
+            ViewBag.VeniclesTypeSortParam = sortParam == "VeniclesType" ? "VeniclesType_desc" : "VeniclesType";
+            ViewBag.EngineSortParam = sortParam == "Engine" ? "Engine_desc" : "Engine";
+            ViewBag.ModelNameSortParam = sortParam == "ModelName" ? "ModelName_desc" : "ModelName";
+            ViewBag.RegistrationNumberSortParam = sortParam == "RegistrationNumber" ? "RegistrationNumber_desc" : "RegistrationNumber";
+            ViewBag.WeightSortParam = sortParam == "Weight" ? "Weight_desc" : "Weight";
+            ViewBag.YearSortParam = sortParam == "Year" ? "Year_desc" : "Year";
+            ViewBag.ColorSortParam = sortParam == "Color" ? "Color_desc" : "Color";            
+            ViewBag.MileageSortParam = sortParam == "Mileage" ? "Mileage_desc" : "Mileage";
+            ViewBag.TankSortParam = sortParam == "Tank" ? "Tank_desc" : "Tank";
+
+            var sort = repo.GetAll();
+            if (sortParam != null)
+            {
+                sort = repo.SortBy(sortParam);
+            }        
+            
+            return View(sort.ToList());
         }
         public ActionResult Create()
         {
@@ -59,6 +75,8 @@ namespace Autopark_Web_Version.Controllers
         {
             repo.Delete(id);
             return RedirectToAction("Index");
-        }
+        }      
+
+
     }
 }

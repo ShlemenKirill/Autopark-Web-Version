@@ -8,16 +8,16 @@
 </p>
 <table class="table">
     <tr>
-        <th>VenicleId</th>
-        <th>VenicleType</th>
-        <th>Engine</th>
-        <th>ModelName</th>
-        <th>RegistrationNumber</th>
-        <th>Weight</th>
-        <th>Year</th>
-        <th>Color</th>
-        <th>Mileage</th>
-        <th>Tank</th>
+        <th><a>VenicleId</a></th>
+        <th>@Html.ActionLink("VenicleType", "Index", new { sortParam = ViewBag.VenicleTypeSortParam })</th>
+        <th>@Html.ActionLink("Engine", "Index", new { sortParam = ViewBag.EngineSortParam })</th>
+        <th>@Html.ActionLink("ModelName", "Index", new { sortParam = ViewBag.ModelNameSortParam })</th>
+        <th>@Html.ActionLink("RegistrationNumber", "Index", new { sortParam = ViewBag.RegistrationNumberSortParam })</th>
+        <th>@Html.ActionLink("Weight", "Index", new { sortParam = ViewBag.WeightSortParam })</th>
+        <th>@Html.ActionLink("Year", "Index", new { sortParam = ViewBag.YearSortParam })</th>
+        <th>@Html.ActionLink("Color", "Index", new { sortParam = ViewBag.ColorSortParam })</th>
+        <th>@Html.ActionLink("Mileage", "Index", new { sortParam = ViewBag.MileageSortParam })</th>
+        <th>@Html.ActionLink("Tank", "Index", new { sortParam = ViewBag.TankSortParam })</th>
         <th></th>
     </tr>
 
