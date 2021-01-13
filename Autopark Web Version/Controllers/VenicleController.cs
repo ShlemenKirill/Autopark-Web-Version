@@ -16,23 +16,24 @@ namespace Autopark_Web_Version.Controllers
         }
 
         public ActionResult Index(string sortParam)
-        {
-            ViewBag.VeniclesTypeSortParam = String.IsNullOrEmpty(sortParam) ? "VeniclesType" : "";
-            ViewBag.EngineSortParam = String.IsNullOrEmpty(sortParam) ? "Engine" : "";
-            ViewBag.ModelNameSortParam = String.IsNullOrEmpty(sortParam) ? "ModelName" : "";
-            ViewBag.RegistrationNumberSortParam = String.IsNullOrEmpty(sortParam) ? "RegistrationNumber" : "";
-            ViewBag.WeightSortParam = String.IsNullOrEmpty(sortParam) ? "Weight" : "";
-            ViewBag.YearSortParam = String.IsNullOrEmpty(sortParam) ? "Year" : "";
-            ViewBag.ColorSortParam = String.IsNullOrEmpty(sortParam) ? "Color" : "";
-            ViewBag.MileageSortParam = String.IsNullOrEmpty(sortParam) ? "Mileage" : "";
-            ViewBag.TankSortParam = String.IsNullOrEmpty(sortParam) ? "Tank" : "";           
+        {            
+            ViewBag.VeniclesTypeSortParam = sortParam == "VeniclesType" ? "VeniclesType_desc" : "VeniclesType";
+            ViewBag.EngineSortParam = sortParam == "Engine" ? "Engine_desc" : "Engine";
+            ViewBag.ModelNameSortParam = sortParam == "ModelName" ? "ModelName_desc" : "ModelName";
+            ViewBag.RegistrationNumberSortParam = sortParam == "RegistrationNumber" ? "RegistrationNumber_desc" : "RegistrationNumber";
+            ViewBag.WeightSortParam = sortParam == "Weight" ? "Weight_desc" : "Weight";
+            ViewBag.YearSortParam = sortParam == "Year" ? "Year_desc" : "Year";
+            ViewBag.ColorSortParam = sortParam == "Color" ? "Color_desc" : "Color";            
+            ViewBag.MileageSortParam = sortParam == "Mileage" ? "Mileage_desc" : "Mileage";
+            ViewBag.TankSortParam = sortParam == "Tank" ? "Tank_desc" : "Tank";
 
+            var sort = repo.GetAll();
             if (sortParam != null)
             {
-                return View(repo.SortBy(sortParam).ToList());
+                sort = repo.SortBy(sortParam);
             }        
             
-            return View(repo.GetAll().ToList());
+            return View(sort.ToList());
         }
         public ActionResult Create()
         {

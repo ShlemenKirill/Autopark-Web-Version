@@ -68,13 +68,12 @@ namespace Autopark_Web_Version.Models.Repositories
 
         public List<Venicles> SortBy(string order)
         {
-            //var sortedList = connection.Query<Venicles>("SELECT * FROM Venicles");
-            //if (order != null)
-            //{
-            //    sortedList = connection.Query<Venicles>($"SELECT * FROM Venicles ORDER BY {order}");
-            //}            
-            return connection.Query<Venicles>($"SELECT * FROM Venicles ORDER BY {order}").ToList();
-                
+            var str = order.Split("_");
+            if (str.Length == 1)
+            {
+                return connection.Query<Venicles>($"SELECT * FROM Venicles ORDER BY {str[0]}").ToList();
+            }
+            return connection.Query<Venicles>($"SELECT * FROM Venicles ORDER BY {str[0]} {str[1]}").ToList();              
             
         }
 
