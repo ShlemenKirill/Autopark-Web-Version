@@ -19,7 +19,7 @@ namespace Autopark_Web_Version.Controllers
 
         public ActionResult Index(string sortParam)
         {            
-            ViewBag.VeniclesTypeSortParam = sortParam == "VeniclesType" ? "VeniclesType_desc" : "VeniclesType";
+            ViewBag.VenicleTypeSortParam = sortParam == "VeniclesTypeId" ? "VeniclesTypeId_desc" : "VeniclesTypeId";
             ViewBag.EngineSortParam = sortParam == "Engine" ? "Engine_desc" : "Engine";
             ViewBag.ModelNameSortParam = sortParam == "ModelName" ? "ModelName_desc" : "ModelName";
             ViewBag.RegistrationNumberSortParam = sortParam == "RegistrationNumber" ? "RegistrationNumber_desc" : "RegistrationNumber";
