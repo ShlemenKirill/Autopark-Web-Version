@@ -13,6 +13,7 @@ namespace Autopark_Web_Version.Models
         }
         public int VenicleTypeId { get; set; }        
         public string VeniclesType { get; set; }
+        public double VenicleTax { get; set; }
         public virtual ICollection<Venicles> Venicles { get; set; }
     }
 }
