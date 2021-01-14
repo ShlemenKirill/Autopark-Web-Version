@@ -10,9 +10,11 @@ namespace Autopark_Web_Version.Controllers
     public class VenicleController : Controller
     {
         IVenicleRepository<Venicles> repo;
-        public VenicleController(IVenicleRepository<Venicles> r)
+        IVenicleTypeRepository<VenicleType> type;
+        public VenicleController(IVenicleRepository<Venicles> r, IVenicleTypeRepository<VenicleType> t)
         {
             repo = r;
+            type = t;
         }
 
         public ActionResult Index(string sortParam)
