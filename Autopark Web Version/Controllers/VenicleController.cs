@@ -75,7 +75,17 @@ namespace Autopark_Web_Version.Controllers
         {
             repo.Delete(id);
             return RedirectToAction("Index");
-        }      
+        }
+
+        [HttpGet]
+        [ActionName("Details")]
+        public ActionResult Details(int id)
+        {
+            Venicles venicles = repo.Get(id);
+            if (venicles != null)
+                return View(venicles);
+            return NotFound();
+        }
 
 
     }
