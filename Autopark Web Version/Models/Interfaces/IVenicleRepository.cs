@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models
 {
-    public interface IRepository<TEntity>
+    public interface IVenicleRepository<TEntity>
     {
         void Create(TEntity entity);
         void Delete(int id);
