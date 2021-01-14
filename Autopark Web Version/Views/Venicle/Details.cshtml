@@ -1,6 +1,7 @@
 ﻿@model Autopark_Web_Version.Models.Venicles
 @{
     ViewData["Title"] = "Details";
+    double TaxPerMounth = (double)ViewData["TaxPerMounth"];
 }
 <div>
     <dl class="dl-horizontal">
@@ -48,8 +49,13 @@
         <dd>
             @Model.Tank
         </dd>
-    </dl>
 
+        <dt>Tax per mounth</dt>
+        <dd>
+            @TaxPerMounth
+        </dd>
+    </dl>
+    
     <div>
         <a asp-controller="Venicle" asp-action="Index">Back</a>
     </div>
