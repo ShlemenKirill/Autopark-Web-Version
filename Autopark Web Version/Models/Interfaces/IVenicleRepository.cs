@@ -13,5 +13,6 @@ namespace Autopark_Web_Version.Models
         List<TEntity> GetAll();
         void Update(TEntity entity);
         public List<Venicles> SortBy(string order);
+        public double CalculateTaxPerMounth(int id);
     }
 }

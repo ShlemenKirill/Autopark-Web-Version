@@ -77,6 +77,13 @@ namespace Autopark_Web_Version.Models.Repositories
             
         }
 
+        public double CalculateTaxPerMounth(int id)
+        { 
+            var venicle = connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();            
+            var venicleTypeTax = connection.Query<VenicleType>($"SELECT * FROM VenicleType WHERE VenicleTypeId ={venicle.VeniclesTypeId}").FirstOrDefault();            
+            return (venicle.Weight * 0.013) + (venicleTypeTax.VenicleTax * 1.0 * 30.0) + 5;
+        }
+
         #region Disposable
 
         private bool _disposedValue;
