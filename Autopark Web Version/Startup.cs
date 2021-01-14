@@ -27,7 +27,7 @@ namespace Autopark_Web_Version
         {
             string connectionString = "Server=.\\LOCALDB;Initial Catalog=AutoparkWebDatabase;User id=sa;Password=Adminpassword";
             services.AddTransient<IVenicleRepository<Venicles>, VenicleRepository>(provider => new VenicleRepository(connectionString));
-            services.AddTransient<IRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
+            services.AddTransient<IVenicleTypeRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
             services.AddControllersWithViews();            
         }
 
