@@ -9,8 +9,8 @@ namespace Autopark_Web_Version.Controllers
 {
     public class VenicleController : Controller
     {
-        IRepository<Venicles> repo;
-        public VenicleController(IRepository<Venicles> r)
+        IVenicleRepository<Venicles> repo;
+        public VenicleController(IVenicleRepository<Venicles> r)
         {
             repo = r;
         }
