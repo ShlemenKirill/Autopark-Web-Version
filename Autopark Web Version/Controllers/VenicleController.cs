@@ -86,6 +86,7 @@ namespace Autopark_Web_Version.Controllers
             Venicles venicles = repo.Get(id);
             repo.CalculateTaxPerMounth(id);
             ViewData["TaxPerMounth"] = repo.CalculateTaxPerMounth(id);
+            ViewData["MaxKilometers"] = repo.CalculateMaxKilometers(id);
             if (venicles != null)
                 return View(venicles);
             return NotFound();

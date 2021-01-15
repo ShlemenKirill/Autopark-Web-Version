@@ -17,6 +17,7 @@ namespace Autopark_Web_Version.Models
         public string Color { get; set; }
         public int Mileage { get; set; }
         public int Tank { get; set; }
+        public double Consumption { get; set; }
 
         public virtual VenicleType VenicleType { get; set; }
     }

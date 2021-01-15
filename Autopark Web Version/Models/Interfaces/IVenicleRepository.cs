@@ -14,5 +14,6 @@ namespace Autopark_Web_Version.Models
         void Update(TEntity entity);
         public List<Venicles> SortBy(string order);
         public double CalculateTaxPerMounth(int id);
+        public double CalculateMaxKilometers(int id);
     }
 }
