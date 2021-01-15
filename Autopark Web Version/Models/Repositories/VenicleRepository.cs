@@ -27,8 +27,8 @@ namespace Autopark_Web_Version.Models.Repositories
         public  void Create(Venicles entity)
         {
             
-            var sqlQuery = $"INSERT INTO Venicles (VeniclesTypeId, Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank) " +
-                            "VALUES(@VeniclesTypeId, @Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank)";
+            var sqlQuery = $"INSERT INTO Venicles (VeniclesTypeId, Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank, Consumption) " +
+                            "VALUES(@VeniclesTypeId, @Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank, @Consumption)";
             connection.Execute(sqlQuery, entity);
             
         }
@@ -61,6 +61,7 @@ namespace Autopark_Web_Version.Models.Repositories
                             "Color = @Color, " +
                             "Mileage = @Mileage, " +
                             "Tank = @Tank " +
+                            "Consumption = @Consumption" +
                             "WHERE VenicleId = @VenicleId";
             connection.Execute(sqlQuery, entity);                
             
@@ -82,6 +83,13 @@ namespace Autopark_Web_Version.Models.Repositories
             var venicle = connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();            
             var venicleTypeTax = connection.Query<VenicleType>($"SELECT * FROM VenicleType WHERE VenicleTypeId ={venicle.VeniclesTypeId}").FirstOrDefault();            
             return (venicle.Weight * 0.013) + (venicleTypeTax.VenicleTax * 1.0 * 30.0) + 5;
+        }
+
+        public double CalculateMaxKilometers(int id)
+        { 
+            var venicle = connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();
+
+            return venicle.Tank / (double)venicle.Consumption ; 
         }
 
         #region Disposable

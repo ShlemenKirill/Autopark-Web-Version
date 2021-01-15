@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Details";
     double TaxPerMounth = (double)ViewData["TaxPerMounth"];
+    double MaxKilometers = (double)ViewData["MaxKilometers"];
 }
 <div>
     <dl class="dl-horizontal">
@@ -50,10 +51,23 @@
             @Model.Tank
         </dd>
 
+        <dt>Tank</dt>
+        <dd>
+            @Model.Consumption
+        </dd>
+
+
         <dt>Tax per mounth</dt>
         <dd>
             @TaxPerMounth
         </dd>
+
+        <dt>Tax per mounth</dt>
+        <dd>
+            @MaxKilometers
+        </dd>
+
+
     </dl>
     
     <div>

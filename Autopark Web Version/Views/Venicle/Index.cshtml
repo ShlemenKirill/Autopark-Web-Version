@@ -20,6 +20,7 @@
         <th>@Html.ActionLink("Color", "Index", new { sortParam = ViewBag.ColorSortParam })</th>
         <th>@Html.ActionLink("Mileage", "Index", new { sortParam = ViewBag.MileageSortParam })</th>
         <th>@Html.ActionLink("Tank", "Index", new { sortParam = ViewBag.TankSortParam })</th>
+        <th>Consumption</th>
         <th></th>
     </tr>
 
@@ -48,6 +49,7 @@
             <td>@item.Color</td>
             <td>@item.Mileage</td>
             <td>@item.Tank</td>
+            <td>@item.Consumption</td>
 
             <td>
                 <a asp-controller="Venicle" asp-action="Edit" asp-route-id="@item.VenicleId">Change</a> |
