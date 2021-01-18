@@ -60,8 +60,8 @@ namespace Autopark_Web_Version.Models.Repositories
                             "Year = @Year, " +
                             "Color = @Color, " +
                             "Mileage = @Mileage, " +
-                            "Tank = @Tank " +
-                            "Consumption = @Consumption" +
+                            "Tank = @Tank, " +
+                            "Consumption = @Consumption " +
                             "WHERE VenicleId = @VenicleId";
             connection.Execute(sqlQuery, entity);                
             
