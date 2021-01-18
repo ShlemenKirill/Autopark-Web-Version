@@ -1,0 +1,23 @@
+﻿@model Autopark_Web_Version.Models.Details
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Detail Id</dt>
+        <dd>
+            @Model.DetailId
+        </dd>
+
+        <dt>Detail Name</dt>
+        <dd>
+            @Model.DetailName
+        </dd>
+
+    </dl>
+    
+    <div>
+        <a asp-controller="Details" asp-action="Index">Back</a>
+    </div>
+</div>
