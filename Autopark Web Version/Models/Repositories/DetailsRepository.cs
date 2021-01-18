@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class DetailsRepository : IDetailsRepository, IDisposable
+    public class DetailsRepository : IDetailsRepository<Details>, IDisposable
     {
         readonly IDbConnection connection = null;
         public DetailsRepository(string dbConnection)

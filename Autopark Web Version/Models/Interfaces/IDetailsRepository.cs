@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Interfaces
 {
-    interface IDetailsRepository
+    public interface IDetailsRepository<TEntity>
     {
-        void Create(Details entity);
+        void Create(TEntity entity);
         void Delete(int id);
-        Details Get(int id);
-        List<Details> GetAll();
-        void Update(Details entity);        
+        TEntity Get(int id);
+        List<TEntity> GetAll();
+        void Update(TEntity entity);        
     }
 }
