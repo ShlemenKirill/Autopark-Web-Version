@@ -1,4 +1,5 @@
 using Autopark_Web_Version.Models;
+using Autopark_Web_Version.Models.Interfaces;
 using Autopark_Web_Version.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ namespace Autopark_Web_Version
             string connectionString = "Server=.\\LOCALDB;Initial Catalog=AutoparkWebDatabase;User id=sa;Password=Adminpassword";
             services.AddTransient<IVenicleRepository<Venicles>, VenicleRepository>(provider => new VenicleRepository(connectionString));
             services.AddTransient<IVenicleTypeRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
+            services.AddTransient<IDetailsRepository<Details>, DetailsRepository>(provider => new DetailsRepository(connectionString));
             services.AddControllersWithViews();            
         }
 
