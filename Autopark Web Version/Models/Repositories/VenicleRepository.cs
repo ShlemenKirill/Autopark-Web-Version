@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VenicleRepository : IVenicleRepository<Venicles>
+    public class VenicleRepository : IVenicleRepository<Venicles>, IDisposable
     {
         readonly IDbConnection connection = null;
         public VenicleRepository(string dbConnection)
