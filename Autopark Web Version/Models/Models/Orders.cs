@@ -1,19 +1,19 @@
-﻿using Autopark_Web_Version.Models.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Autopark_Web_Version.Models
+namespace Autopark_Web_Version.Models.Models
 {
-    public class Details
+    public class Orders
     {
-        public Details()
+        public Orders()
         {
             OrderDetails = new HashSet<OrderDetails>();
         }
-        public int DetailId { get; set; }
-        public string DetailName { get; set; }
+        public int OrderId { get; set; }
+        public int VenicleId { get; set; }
+        public DateTime? Date { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }
