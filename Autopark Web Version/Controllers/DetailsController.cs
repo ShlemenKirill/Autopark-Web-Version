@@ -20,7 +20,12 @@ namespace Autopark_Web_Version.Controllers
         {         
             
             return View(repo.GetAll());
-        }        
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Create(Details details)

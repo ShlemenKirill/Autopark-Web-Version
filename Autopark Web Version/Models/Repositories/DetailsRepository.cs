@@ -42,7 +42,7 @@ namespace Autopark_Web_Version.Models.Repositories
         public void Update(Details entity)
         {
             var sqlQuery = "UPDATE Details SET " +
-                            "DetailName = @DetailName, " +                            
+                            "DetailName = @DetailName " +                            
                             "WHERE DetailId = @DetailId";
             connection.Execute(sqlQuery, entity);
         }
