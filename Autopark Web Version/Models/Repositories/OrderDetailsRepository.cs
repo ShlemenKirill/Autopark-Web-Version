@@ -23,15 +23,15 @@ namespace Autopark_Web_Version.Models.Repositories
             connection.Execute(sqlQuery, entity);
         }
 
-        //public List<OrderDetails> GetAllByVenicleId(int id)
-        //{
-        //    return connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE VenicleId = @id", new { id }).ToList();         
-
-        //}
-        public List<OrderDetails> Get(int id)
+        public List<OrderDetails> GetAllByVenicleId(int id)
         {
             return connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE VenicleId = @id", new { id }).ToList();
+
         }
+        //public List<OrderDetails> Get(int id)
+        //{
+        //    return connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE VenicleId = @id", new { id }).ToList();
+        //}
 
         #region Disposable
 

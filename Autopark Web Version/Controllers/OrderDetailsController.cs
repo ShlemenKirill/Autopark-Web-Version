@@ -24,15 +24,15 @@ namespace Autopark_Web_Version.Controllers
         [HttpPost]
         public ActionResult Create(OrderDetails orderDetails)
         {
-            repo.Create(orderDetails);            
-            return RedirectToPage("Orders/Index");
+            repo.Create(orderDetails);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         [ActionName("Details")]
         public ActionResult Details(int id)
         {
-            List<OrderDetails> orderDetails = repo.Get(id);
+            List<OrderDetails> orderDetails = repo.GetAllByVenicleId(id);
             if (orderDetails != null)
                 return View(orderDetails);
             return NotFound();
