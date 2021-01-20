@@ -3,7 +3,9 @@ using Autopark_Web_Version.Models.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
@@ -19,6 +21,16 @@ namespace Autopark_Web_Version.Models.Repositories
             var sqlQuery = $"INSERT INTO OrderDetails (OrderId, VenicleId, DetailId, Quantity) " +
                             "VALUES(@OrderId, @VenicleId, @DetailId, @Quantity)";
             connection.Execute(sqlQuery, entity);
+        }
+
+        //public List<OrderDetails> GetAllByVenicleId(int id)
+        //{
+        //    return connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE VenicleId = @id", new { id }).ToList();         
+
+        //}
+        public List<OrderDetails> Get(int id)
+        {
+            return connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE VenicleId = @id", new { id }).ToList();
         }
 
         #region Disposable
@@ -50,9 +62,6 @@ namespace Autopark_Web_Version.Models.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-
-
         #endregion Disposable
     }
 }

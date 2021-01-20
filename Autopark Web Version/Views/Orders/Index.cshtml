@@ -24,9 +24,8 @@
     <td>@item.Date</td>
 
     <td>
-        <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderId">Change</a> |
-        <a asp-controller="Orders" asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-        <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+        <a asp-controller="OrderDetails" asp-action="Create" asp-route-id="@item.OrderId, @item.VenicleId" >Change</a>        
+        <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.VenicleId">Details</a>
     </td>
 </tr>
     }

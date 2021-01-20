@@ -32,6 +32,7 @@ namespace Autopark_Web_Version
             services.AddTransient<IVenicleTypeRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
             services.AddTransient<IDetailsRepository<Details>, DetailsRepository>(provider => new DetailsRepository(connectionString));
             services.AddTransient<IOrdersRepository<Orders>, OrdersRepository>(provider => new OrdersRepository(connectionString));
+            services.AddTransient<IOrderDetailsRepository<OrderDetails>, OrderDetailsRepository>(provider => new OrderDetailsRepository(connectionString));
             services.AddControllersWithViews();            
         }
 
