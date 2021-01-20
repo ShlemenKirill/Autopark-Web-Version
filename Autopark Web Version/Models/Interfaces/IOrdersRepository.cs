@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Interfaces
 {
-    interface IOrdersRepository<TEntity>
-    {
-        void Create(TEntity entity);
-        void Delete(int id);
-        TEntity Get(int id);
+    public interface IOrdersRepository<TEntity>
+    {        
         List<TEntity> GetAll();
-        void Update(TEntity entity);
+        
     }
 }
