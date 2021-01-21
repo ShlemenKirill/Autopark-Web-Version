@@ -19,7 +19,15 @@ namespace Autopark_Web_Version.Models.Repositories
         }
         public IEnumerable<VOrders> GetAll()
         {
-            return connection.Query<VOrders>("SELECT Orders.OrderId, (Venicles.ModelName + ' ' + Venicles.RegistrationNumber) as VenicleName, Orders.Date FROM[Orders] INNER JOIN[Venicles] ON Orders.VenicleId = Venicles.VenicleId").ToList();
+            return connection.Query<VOrders>
+                (
+                "SELECT " +
+                "Orders.OrderId, " +
+                "(Venicles.ModelName + ' ' + Venicles.RegistrationNumber) as VenicleName, " +
+                "Orders.Date " +
+                "FROM[Orders] INNER JOIN[Venicles] " +
+                "ON Orders.VenicleId = Venicles.VenicleId"
+                ).ToList();
         }
     }
 }
