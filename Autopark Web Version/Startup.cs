@@ -1,5 +1,6 @@
 using Autopark_Web_Version.Models;
 using Autopark_Web_Version.Models.Interfaces;
+using Autopark_Web_Version.Models.Models;
 using Autopark_Web_Version.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,9 @@ namespace Autopark_Web_Version
             services.AddTransient<IVenicleRepository<Venicles>, VenicleRepository>(provider => new VenicleRepository(connectionString));
             services.AddTransient<IVenicleTypeRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
             services.AddTransient<IDetailsRepository<Details>, DetailsRepository>(provider => new DetailsRepository(connectionString));
+            services.AddTransient<IOrdersRepository<Orders>, OrdersRepository>(provider => new OrdersRepository(connectionString));
+            services.AddTransient<IOrderDetailsRepository<OrderDetails>, OrderDetailsRepository>(provider => new OrderDetailsRepository(connectionString));
+            services.AddTransient<IReadOnlyRepository<VOrders>, VOrdersRepository>(provider => new VOrdersRepository(connectionString));
             services.AddControllersWithViews();            
         }
 
