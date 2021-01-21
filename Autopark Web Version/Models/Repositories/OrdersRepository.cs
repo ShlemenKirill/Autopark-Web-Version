@@ -21,7 +21,7 @@ namespace Autopark_Web_Version.Models.Repositories
         public List<Orders> GetAll()
         {
             return connection.Query<Orders>("SELECT * FROM Orders").ToList();
-            //return connection.Query<Orders>("SELECT Orders.OrderId, (Venicles.ModelName + ' ' + Venicles.RegistrationNumber) as VenicleId, Orders.Date FROM[Orders] INNER JOIN[Venicles] ON Orders.VenicleId = Venicles.VenicleId").ToList();
+            
         }
 
         

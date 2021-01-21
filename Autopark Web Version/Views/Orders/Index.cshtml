@@ -1,8 +1,7 @@
-﻿@model IEnumerable<Autopark_Web_Version.Models.Models.Orders>
+﻿@model IEnumerable<Autopark_Web_Version.Models.Models.VOrders>
 
 @{
-    ViewData["Title"] = "AutoPark";
-    ViewData["Type"] = null;
+    ViewData["Title"] = "AutoPark";    
 }
 <h2>@ViewData["Title"]</h2>
 <p>
@@ -20,12 +19,12 @@
     {
 <tr>
     <td>@item.OrderId</td>
-    <td>@item.VenicleId</td>
+    <td>@item.VenicleName</td>
     <td>@item.Date</td>
 
     <td>
         <a asp-controller="OrderDetails" asp-action="Create" asp-route-id="@item.OrderId">Add details</a>        
-        <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.VenicleId">Details</a>
+        <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.VenicleName">Details</a>
     </td>
 </tr>
     }

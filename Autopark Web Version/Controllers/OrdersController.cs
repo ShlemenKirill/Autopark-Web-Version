@@ -6,8 +6,8 @@ namespace Autopark_Web_Version.Controllers
 {
     public class OrdersController : Controller
     {
-        IOrdersRepository<Orders> repo;
-        public OrdersController(IOrdersRepository<Orders> r)
+        IReadOnlyRepository<VOrders> repo;
+        public OrdersController(IReadOnlyRepository<VOrders> r)
         {
             repo = r;
         }
