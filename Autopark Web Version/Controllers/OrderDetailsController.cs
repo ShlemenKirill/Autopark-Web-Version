@@ -32,7 +32,7 @@ namespace Autopark_Web_Version.Controllers
         [ActionName("Details")]
         public ActionResult Details(int id)
         {
-            List<OrderDetails> orderDetails = repo.GetAllByVenicleId(id);
+            List<OrderDetails> orderDetails = repo.GetAllByOrderId(id);
             if (orderDetails != null)
                 return View(orderDetails);
             return NotFound();
