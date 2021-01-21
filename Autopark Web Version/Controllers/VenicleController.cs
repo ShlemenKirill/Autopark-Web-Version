@@ -1,4 +1,6 @@
 ﻿using Autopark_Web_Version.Models;
+using Autopark_Web_Version.Models.Interfaces;
+using Autopark_Web_Version.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,8 +12,8 @@ namespace Autopark_Web_Version.Controllers
     public class VenicleController : Controller
     {
         IVenicleRepository<Venicles> repo;
-        IVenicleTypeRepository<VenicleType> type;
-        public VenicleController(IVenicleRepository<Venicles> r, IVenicleTypeRepository<VenicleType> t)
+        IReadOnlyRepository<VVEnicles> type;
+        public VenicleController(IVenicleRepository<Venicles> r, IReadOnlyRepository<VVEnicles> t)
         {
             repo = r;
             type = t;
@@ -33,9 +35,9 @@ namespace Autopark_Web_Version.Controllers
             if (sortParam != null)
             {
                 sort = repo.SortBy(sortParam);
-            }        
-            
-            return View(sort.ToList());
+            }
+            return View(type.GetAll());
+            //return View(sort.ToList());
         }
         public ActionResult Create()
         {
