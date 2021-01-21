@@ -1,66 +1,4 @@
-﻿@*@model IEnumerable<Autopark_Web_Version.Models.Venicles>
-
-    @{
-        ViewData["Title"] = "AutoPark";
-        ViewData["Type"] = null;
-    }
-    <h2>@ViewData["Title"]</h2>
-    <p>
-        <a asp-controller="Venicle" asp-action="Create">Add</a>
-    </p>
-    <table class="table">
-        <tr>
-            <th><a>VenicleId</a></th>
-            <th>@Html.ActionLink("VeniclesTypeId", "Index", new { sortParam = ViewBag.VenicleTypeSortParam })</th>
-            <th>@Html.ActionLink("Engine", "Index", new { sortParam = ViewBag.EngineSortParam })</th>
-            <th>@Html.ActionLink("ModelName", "Index", new { sortParam = ViewBag.ModelNameSortParam })</th>
-            <th>@Html.ActionLink("RegistrationNumber", "Index", new { sortParam = ViewBag.RegistrationNumberSortParam })</th>
-            <th>@Html.ActionLink("Weight", "Index", new { sortParam = ViewBag.WeightSortParam })</th>
-            <th>@Html.ActionLink("Year", "Index", new { sortParam = ViewBag.YearSortParam })</th>
-            <th>@Html.ActionLink("Color", "Index", new { sortParam = ViewBag.ColorSortParam })</th>
-            <th>@Html.ActionLink("Mileage", "Index", new { sortParam = ViewBag.MileageSortParam })</th>
-            <th>@Html.ActionLink("Tank", "Index", new { sortParam = ViewBag.TankSortParam })</th>
-            <th>Consumption</th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.VenicleId</td>
-                <td>
-                    @{
-                        if (item.VeniclesTypeId == 1)
-                            ViewData["Type"] = "Bus";
-                        else if (item.VeniclesTypeId == 2)
-                            ViewData["Type"] = "Car";
-                        else if (item.VeniclesTypeId == 3)
-                            ViewData["Type"] = "Rink";
-                        else
-                            ViewData["Type"] = "Tractor";
-                    }
-                    @ViewData["Type"]
-                </td>
-                <td>@item.Engine</td>
-                <td>@item.ModelName</td>
-                <td>@item.RegistrationNumber</td>
-                <td>@item.Weight</td>
-                <td>@item.Year</td>
-                <td>@item.Color</td>
-                <td>@item.Mileage</td>
-                <td>@item.Tank</td>
-                <td>@item.Consumption</td>
-
-                <td>
-                    <a asp-controller="Venicle" asp-action="Edit" asp-route-id="@item.VenicleId">Change</a> |
-                    <a asp-controller="Venicle" asp-action="Delete" asp-route-id="@item.VenicleId">Delete</a>
-                    <a asp-controller="Venicle" asp-action="Details" asp-route-id="@item.VenicleId">Details</a>
-                </td>
-            </tr>
-        }
-    </table>*@
-
-@model IEnumerable<Autopark_Web_Version.Models.Models.VVEnicles>
+﻿@model IEnumerable<Autopark_Web_Version.Models.Models.VVEnicles>
 @{
     ViewData["Title"] = "AutoPark";
     ViewData["Type"] = null;
@@ -72,14 +10,14 @@
 <table class="table">
     <tr>
         <th><a>Venicle ID</a></th>
-        <th><a>Venicle Type</a></th>
+        <th>@Html.ActionLink("VenicleType", "Index", new { sortParam = ViewBag.VenicleTypeSortParam })</th>
         <th><a>Engine</a></th>
-        <th><a>Model Name</a></th>
+        <th>@Html.ActionLink("ModelName", "Index", new { sortParam = ViewBag.ModelNameSortParam })</th>
         <th><a>RegistrationNumber</a></th>
         <th><a>Weight</a></th>
         <th><a>Year</a></th>
         <th><a>Color</a></th>
-        <th><a>Mileage</a></th>
+        <th>@Html.ActionLink("Mileage", "Index", new { sortParam = ViewBag.MileageSortParam })</th>
         <th><a>Tank</a></th>
         <th><a>Consumption</a></th>
         <th></th>
