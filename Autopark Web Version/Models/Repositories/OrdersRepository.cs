@@ -23,8 +23,14 @@ namespace Autopark_Web_Version.Models.Repositories
             return connection.Query<Orders>("SELECT * FROM Orders").ToList();
             
         }
+        public void Create(Orders entity)
+        {
+            var sqlQuery = $"INSERT INTO Orders (VenicleId, Date) " +
+                            "VALUES(@VenicleId, @Date)";
+            connection.Execute(sqlQuery, entity);
+        }
 
-        
+
 
         #region Disposable
 

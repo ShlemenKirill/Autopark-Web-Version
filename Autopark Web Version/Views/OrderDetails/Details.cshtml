@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Autopark_Web_Version.Models.Models.OrderDetails>
+﻿@model IEnumerable<Autopark_Web_Version.Models.Models.VOrderDetails>
 @{
     ViewData["Title"] = "Order Details";
 }
 <table class="table table-sm">
     <thead>
         <tr>
-            <th scope="col">Detail Id</th>
+            <th scope="col">Detail Name</th>
             <th scope="col">Quantity</th>
         </tr>
     </thead>
@@ -14,7 +14,7 @@
         {
         <tr>
             <th>
-                @item.DetailId
+                @item.DetailName
             </th>
 
             <th>

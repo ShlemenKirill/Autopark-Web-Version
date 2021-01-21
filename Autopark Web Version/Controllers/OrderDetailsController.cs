@@ -11,9 +11,11 @@ namespace Autopark_Web_Version.Controllers
     public class OrderDetailsController : Controller
     {
         IOrderDetailsRepository<OrderDetails> repo;
-        public OrderDetailsController(IOrderDetailsRepository<OrderDetails> r)
+        IVOrderDetailsRepository<VOrderDetails> details;
+        public OrderDetailsController(IOrderDetailsRepository<OrderDetails> r, IVOrderDetailsRepository<VOrderDetails> det)
         {
             repo = r;
+            details = det;
         }        
 
         public ActionResult Create()
@@ -32,7 +34,7 @@ namespace Autopark_Web_Version.Controllers
         [ActionName("Details")]
         public ActionResult Details(int id)
         {
-            List<OrderDetails> orderDetails = repo.GetAllByOrderId(id);
+            IEnumerable<VOrderDetails> orderDetails = details.GetAllById(id);
             if (orderDetails != null)
                 return View(orderDetails);
             return NotFound();

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Interfaces
 {
-    interface IVOrderDetailsRepository<T> where T : class
+    public interface IVOrderDetailsRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAllById(int id);
     }
 }

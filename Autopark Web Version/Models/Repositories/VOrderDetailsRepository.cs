@@ -17,7 +17,7 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public IEnumerable<VOrderDetails> GetAll()
+        public IEnumerable<VOrderDetails> GetAllById(int id)
         {
             return connection.Query<VOrderDetails>
                 (
@@ -30,7 +30,9 @@ namespace Autopark_Web_Version.Models.Repositories
                 "FROM[OrderDetails] INNER JOIN[Details] " +
                 "ON OrderDetails.OrderDetailId = Details.DetailId " +
                 "INNER JOIN[Venicles] " +
-                "ON OrderDetails.VenicleId = Venicles.VenicleId"
+                "ON OrderDetails.VenicleId = Venicles.VenicleId " +
+                "WHERE OrderId = @id"
+                , new { id }
                 ).ToList();
         }
     }
