@@ -29,5 +29,10 @@ namespace Autopark_Web_Version.Models.Repositories
                 "ON Orders.VenicleId = Venicles.VenicleId"
                 ).ToList();
         }
+
+        public IEnumerable<VOrders> SortBy(string order)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
