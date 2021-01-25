@@ -9,5 +9,6 @@ namespace Autopark_Web_Version.Models.Interfaces
     {        
         List<TEntity> GetAll();
         public void Create(TEntity entity);
+        TEntity Get(int id);
     }
 }

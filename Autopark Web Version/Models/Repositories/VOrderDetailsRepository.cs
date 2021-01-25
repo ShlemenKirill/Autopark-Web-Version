@@ -19,6 +19,7 @@ namespace Autopark_Web_Version.Models.Repositories
         }
         public IEnumerable<VOrderDetails> GetAllById(int id)
         {
+            
             return connection.Query<VOrderDetails>
                 (
                 "SELECT " +
@@ -31,9 +32,9 @@ namespace Autopark_Web_Version.Models.Repositories
                 "ON OrderDetails.OrderDetailId = Details.DetailId " +
                 "INNER JOIN[Venicles] " +
                 "ON OrderDetails.VenicleId = Venicles.VenicleId " +
-                "WHERE OrderId = @id"
-                , new { id }
+                "WHERE OrderId = @id", new { id }               
                 ).ToList();
+            
         }
     }
 }
