@@ -6,15 +6,11 @@
 <h2>@ViewData["Title"]</h2>
 
 <form asp-action="Create" asp-controller="OrderDetails">
-    <div>
-        <p>@ViewBag.Order.OrderId</p>
-        <p>@ViewBag.Order.VenicleId</p>
-        <div class="form-group">
-            @*<label asp-for="OrderId"></label>*@
+    <div>        
+        <div class="form-group">            
             <input type="hidden" asp-for="OrderId" value=@ViewBag.Order.OrderId class="form-control  form-control-sm" />
         </div>
-        <div class="form-group">
-            @*<label asp-for="VenicleId"></label>*@
+        <div class="form-group">           
             <input type="hidden" asp-for="VenicleId" value=@ViewBag.Order.VenicleId class="form-control  form-control-sm" />
         </div>
         <div class="form-group">
@@ -32,7 +28,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+            <input type="submit" value="Save" class="btn btn-outline-secondary" />
         </div>
     </div>
 </form>

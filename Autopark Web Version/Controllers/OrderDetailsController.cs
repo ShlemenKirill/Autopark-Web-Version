@@ -11,14 +11,12 @@ namespace Autopark_Web_Version.Controllers
 {
     public class OrderDetailsController : Controller
     {
-        IOrderDetailsRepository<OrderDetails> orderDetails;
-        IVOrderDetailsRepository<VOrderDetails> detailsView;
+        IOrderDetailsRepository<OrderDetails> orderDetails;        
         IDetailsRepository<Details> details;
         IOrdersRepository<Orders> orders;
-        public OrderDetailsController(IOrderDetailsRepository<OrderDetails> orderDetails, IVOrderDetailsRepository<VOrderDetails> detailsView, IDetailsRepository<Details> details, IOrdersRepository<Orders> orders)
+        public OrderDetailsController(IOrderDetailsRepository<OrderDetails> orderDetails, IDetailsRepository<Details> details, IOrdersRepository<Orders> orders)
         {
-            this.orderDetails = orderDetails;
-            this.detailsView = detailsView;
+            this.orderDetails = orderDetails;            
             this.details = details;
             this.orders = orders;
         }        
@@ -34,7 +32,7 @@ namespace Autopark_Web_Version.Controllers
         public ActionResult Create(OrderDetails orderDetail)
         {
             orderDetails.Create(orderDetail);
-            return RedirectToAction("Index");
+            return Redirect("/Orders/Index");
         }
 
         [HttpGet]
