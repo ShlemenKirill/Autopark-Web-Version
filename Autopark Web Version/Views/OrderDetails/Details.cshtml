@@ -1,25 +1,31 @@
-﻿@model IEnumerable<Autopark_Web_Version.Models.Models.OrderDetails>
+﻿@model IEnumerable<Autopark_Web_Version.Models.Models.VOrderDetails>
 @{
     ViewData["Title"] = "Order Details";
 }
-
-<div>
-    <dl class="dl-horizontal">
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Detail Name</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
-            <dt>Detail Id</dt>
-            <dd>
-                @item.DetailId
-            </dd>
+        <tr>
+            <th>
+                @item.DetailName
+            </th>
 
-            <dt>Quantity</dt>
-            <dd>
+            <th>
                 @item.Quantity
-            </dd>
+            </th>
+        </tr>
+            
         }
-
-
-    </dl>
+    </tbody>
+</table>
+<div> 
 
     <div>
         <a asp-controller="Orders" asp-action="Index">Back</a>

@@ -8,7 +8,7 @@ namespace Autopark_Web_Version.Models.Interfaces
     public interface IOrderDetailsRepository<TEntity>
     {
         void Create(TEntity entity);
-        List<TEntity> GetAllByVenicleId(int id);
+        List<TEntity> GetAllByOrderId(int id);
 
     }
 }

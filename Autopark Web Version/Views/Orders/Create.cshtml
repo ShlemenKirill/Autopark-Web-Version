@@ -1,0 +1,27 @@
+﻿@model Autopark_Web_Version.Models.Models.Orders
+
+@{
+    ViewData["Title"] = "New Order";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" asp-controller="Orders">
+    <div>
+        <div class="form-group">
+            <label asp-for="VenicleId"></label>
+            <input asp-for="VenicleId" class="form-control  form-control-sm" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control  form-control-sm" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-controller="Orders" asp-action="Index">Back</a>
+</div>

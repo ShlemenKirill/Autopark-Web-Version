@@ -27,15 +27,17 @@ namespace Autopark_Web_Version
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = "Server=.\\LOCALDB;Initial Catalog=AutoparkWebDatabase;User id=sa;Password=Adminpassword";
-            services.AddTransient<IVenicleRepository<Venicles>, VenicleRepository>(provider => new VenicleRepository(connectionString));
-            services.AddTransient<IVenicleTypeRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
-            services.AddTransient<IDetailsRepository<Details>, DetailsRepository>(provider => new DetailsRepository(connectionString));
-            services.AddTransient<IOrdersRepository<Orders>, OrdersRepository>(provider => new OrdersRepository(connectionString));
-            services.AddTransient<IOrderDetailsRepository<OrderDetails>, OrderDetailsRepository>(provider => new OrderDetailsRepository(connectionString));
-            services.AddTransient<IReadOnlyRepository<VOrders>, VOrdersRepository>(provider => new VOrdersRepository(connectionString));
-            services.AddTransient<IReadOnlyRepository<VVEnicles>, VVeniclesRepository>(provider => new VVeniclesRepository(connectionString));
-            services.AddControllersWithViews();            
+            string connectionString = Configuration.GetConnectionString("Default");
+            services.AddScoped<IVenicleRepository<Venicles>, VenicleRepository>(provider => new VenicleRepository(connectionString));
+            services.AddScoped<IVenicleTypeRepository<VenicleType>, VenicleTypeRepository>(provider => new VenicleTypeRepository(connectionString));
+            services.AddScoped<IDetailsRepository<Details>, DetailsRepository>(provider => new DetailsRepository(connectionString));
+            services.AddScoped<IOrdersRepository<Orders>, OrdersRepository>(provider => new OrdersRepository(connectionString));
+            services.AddScoped<IOrderDetailsRepository<OrderDetails>, OrderDetailsRepository>(provider => new OrderDetailsRepository(connectionString));
+            services.AddScoped<IReadOnlyRepository<VOrders>, VOrdersRepository>(provider => new VOrdersRepository(connectionString));
+            services.AddScoped<IReadOnlyRepository<VVEnicles>, VVeniclesRepository>(provider => new VVeniclesRepository(connectionString));
+            services.AddScoped<IVOrderDetailsRepository<VOrderDetails>, VOrderDetailsRepository>(provider => new VOrderDetailsRepository(connectionString));
+            services.AddControllersWithViews();  
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +57,7 @@ namespace Autopark_Web_Version
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

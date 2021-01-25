@@ -29,16 +29,13 @@ namespace Autopark_Web_Version.Models.Repositories
             
             var sqlQuery = $"INSERT INTO Venicles (VeniclesTypeId, Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank, Consumption) " +
                             "VALUES(@VeniclesTypeId, @Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank, @Consumption)";
-            connection.Execute(sqlQuery, entity);
-            
+            connection.Execute(sqlQuery, entity);            
         }
 
         public  void Delete(int id)
-        {
-            
+        {            
             var sqlQuery = "DELETE FROM Venicles WHERE VenicleId = @id";
-            connection.Execute(sqlQuery, new { id });
-            
+            connection.Execute(sqlQuery, new { id });            
         }
 
         public  Venicles Get(int id)

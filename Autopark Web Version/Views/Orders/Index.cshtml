@@ -5,7 +5,7 @@
 }
 <h2>@ViewData["Title"]</h2>
 <p>
-    <a asp-controller="Details" asp-action="Create">Add</a>
+    <a asp-controller="Orders" asp-action="Create">Add</a>
 </p>
 <table class="table">
     <tr>
@@ -24,7 +24,7 @@
 
     <td>
         <a asp-controller="OrderDetails" asp-action="Create" asp-route-id="@item.OrderId">Add details</a>        
-        <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.VenicleName">Details</a>
+        <a asp-controller="OrderDetails" asp-action="Details" asp-route-id="@item.OrderId">Details</a>
     </td>
 </tr>
     }
