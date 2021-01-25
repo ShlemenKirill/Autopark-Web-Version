@@ -38,47 +38,47 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Venicles venicles)
+        public async Task<ActionResult> Create(Venicles venicles)
         {
-            repo.Create(venicles);
+            await repo.Create(venicles);
             return RedirectToAction("Index");
         }
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            Venicles venicles = repo.Get(id);
+            Venicles venicles = await repo.Get(id);
             if (venicles != null)
                 return View(venicles);
-            return NotFound();
+            return NotFound();            
         }
 
         [HttpPost]
-        public ActionResult Edit(Venicles venicles)
+        public async Task<ActionResult> Edit(Venicles venicles)
         {
-            repo.Update(venicles);
+            await repo.Update(venicles);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         [ActionName("Delete")]
-        public ActionResult ConfirmDelete(int id)
+        public async Task<ActionResult> ConfirmDelete(int id)
         {
-            Venicles venicles = repo.Get(id);
+            Venicles venicles = await repo.Get(id);
             if (venicles != null)
                 return View(venicles);
             return NotFound();
         }
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            repo.Delete(id);
+            await repo.Delete(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         [ActionName("Details")]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            Venicles venicles = repo.Get(id);
+            Venicles venicles = await repo.Get(id);
             repo.CalculateTaxPerMounth(id);
             ViewData["TaxPerMounth"] = repo.CalculateTaxPerMounth(id);
             ViewData["MaxKilometers"] = repo.CalculateMaxKilometers(id);

@@ -19,33 +19,33 @@ namespace Autopark_Web_Version.Models.Repositories
             connection = new SqlConnection(dbConnection);
         }
         
-        public  List<Venicles> GetAll()
+        public async Task<IEnumerable<Venicles>> GetAll()
         {            
-            return connection.Query<Venicles>("SELECT * FROM Venicles").ToList();
+            return await connection.QueryAsync<Venicles>("SELECT * FROM Venicles");
             
         }
-        public  void Create(Venicles entity)
+        public async Task Create(Venicles entity)
         {
             
             var sqlQuery = $"INSERT INTO Venicles (VeniclesTypeId, Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank, Consumption) " +
                             "VALUES(@VeniclesTypeId, @Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank, @Consumption)";
-            connection.Execute(sqlQuery, entity);            
+            await connection.ExecuteAsync(sqlQuery, entity);
+            
         }
 
-        public  void Delete(int id)
+        public async Task Delete(int id)
         {            
             var sqlQuery = "DELETE FROM Venicles WHERE VenicleId = @id";
-            connection.Execute(sqlQuery, new { id });            
+            await connection.ExecuteAsync(sqlQuery, new { id });            
         }
 
-        public  Venicles Get(int id)
+        public async Task<Venicles> Get(int id)
         {
-            
-            return connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();
-            
+            IEnumerable<Venicles> venicleById =  await connection.QueryAsync<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id });
+            return venicleById.FirstOrDefault();
         }
-        
-        public  void Update(Venicles entity)
+
+        public async Task Update(Venicles entity)
         {
             
             var sqlQuery = "UPDATE Venicles SET " +
@@ -60,7 +60,7 @@ namespace Autopark_Web_Version.Models.Repositories
                             "Tank = @Tank, " +
                             "Consumption = @Consumption " +
                             "WHERE VenicleId = @VenicleId";
-            connection.Execute(sqlQuery, entity);                
+            await connection.ExecuteAsync(sqlQuery, entity);                
             
         }
 
@@ -77,16 +77,30 @@ namespace Autopark_Web_Version.Models.Repositories
 
         public double CalculateTaxPerMounth(int id)
         { 
-            var venicle = connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();            
-            var venicleTypeTax = connection.Query<VenicleType>($"SELECT * FROM VenicleType WHERE VenicleTypeId ={venicle.VeniclesTypeId}").FirstOrDefault();            
-            return (venicle.Weight * 0.013) + (venicleTypeTax.VenicleTax * 1.0 * 30.0) + 5;
+            var venicle = connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();
+            var venicleTypeTax = connection.Query<VenicleType>($"SELECT * FROM VenicleType WHERE VenicleTypeId ={venicle.VeniclesTypeId}").FirstOrDefault();
+            var venicleEngine = venicle.Engine;
+            double engineTax = 0;
+            switch (venicleEngine)
+            {
+                case "diesel": 
+                    engineTax = 1.2;
+                    break;
+                case "gasoline":
+                    engineTax = 1;
+                    break;
+                case "electric":
+                    engineTax = 0.1;
+                    break;
+            }
+            return (venicle.Weight * 0.013) + (venicleTypeTax.VenicleTax * engineTax * 30.0) + 5;
         }
 
         public double CalculateMaxKilometers(int id)
         { 
             var venicle = connection.Query<Venicles>("SELECT * FROM Venicles WHERE VenicleId = @id", new { id }).FirstOrDefault();
 
-            return venicle.Tank / (double)venicle.Consumption ; 
+            return venicle.Tank / venicle.Consumption * 100 ; 
         }
 
         #region Disposable
