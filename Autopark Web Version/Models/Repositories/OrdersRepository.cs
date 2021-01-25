@@ -29,7 +29,10 @@ namespace Autopark_Web_Version.Models.Repositories
                             "VALUES(@VenicleId, @Date)";
             connection.Execute(sqlQuery, entity);
         }
-
+        public Orders Get(int id)
+        {
+            return connection.Query<Orders>("SELECT * FROM Orders WHERE OrderId = @id", new { id }).FirstOrDefault();
+        }
 
 
         #region Disposable
@@ -61,6 +64,8 @@ namespace Autopark_Web_Version.Models.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        
 
 
 

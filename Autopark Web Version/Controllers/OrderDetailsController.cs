@@ -1,4 +1,5 @@
-﻿using Autopark_Web_Version.Models.Interfaces;
+﻿using Autopark_Web_Version.Models;
+using Autopark_Web_Version.Models.Interfaces;
 using Autopark_Web_Version.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,23 +11,29 @@ namespace Autopark_Web_Version.Controllers
 {
     public class OrderDetailsController : Controller
     {
-        IOrderDetailsRepository<OrderDetails> repo;
-        IVOrderDetailsRepository<VOrderDetails> details;
-        public OrderDetailsController(IOrderDetailsRepository<OrderDetails> r, IVOrderDetailsRepository<VOrderDetails> det)
+        IOrderDetailsRepository<OrderDetails> orderDetails;
+        IVOrderDetailsRepository<VOrderDetails> detailsView;
+        IDetailsRepository<Details> details;
+        IOrdersRepository<Orders> orders;
+        public OrderDetailsController(IOrderDetailsRepository<OrderDetails> orderDetails, IVOrderDetailsRepository<VOrderDetails> detailsView, IDetailsRepository<Details> details, IOrdersRepository<Orders> orders)
         {
-            repo = r;
-            details = det;
+            this.orderDetails = orderDetails;
+            this.detailsView = detailsView;
+            this.details = details;
+            this.orders = orders;
         }        
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.Details = details.GetAll();
+            ViewBag.Order = orders.Get(id);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(OrderDetails orderDetails)
+        public ActionResult Create(OrderDetails orderDetail)
         {
-            repo.Create(orderDetails);
+            orderDetails.Create(orderDetail);
             return RedirectToAction("Index");
         }
 
@@ -34,9 +41,10 @@ namespace Autopark_Web_Version.Controllers
         [ActionName("Details")]
         public ActionResult Details(int id)
         {
-            IEnumerable<VOrderDetails> orderDetails = details.GetAllById(id);
+            ViewBag.Details = details.GetAll();
+            var orderDetail = orderDetails.GetAllByOrderId(id);
             if (orderDetails != null)
-                return View(orderDetails);
+                return View(orderDetail);
             return NotFound();
         }
     }

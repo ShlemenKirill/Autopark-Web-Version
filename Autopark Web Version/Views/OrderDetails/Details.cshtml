@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Autopark_Web_Version.Models.Models.VOrderDetails>
+﻿@model IEnumerable<Autopark_Web_Version.Models.Models.OrderDetails>
 @{
     ViewData["Title"] = "Order Details";
 }
@@ -9,19 +9,25 @@
             <th scope="col">Quantity</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>        
         @foreach (var item in Model)
         {
-        <tr>
-            <th>
-                @item.DetailName
-            </th>
+            <tr>
+                <th>
+                    @foreach (var details in @ViewBag.Details)
+                    {
+                        if (details.DetailId == @item.DetailId)
+                        {
+                            @details.DetailName;
+                        }
+                    }                    
+                </th>
 
-            <th>
-                @item.Quantity
-            </th>
-        </tr>
-            
+                <th>
+                    @item.Quantity
+                </th>
+            </tr>
+
         }
     </tbody>
 </table>
