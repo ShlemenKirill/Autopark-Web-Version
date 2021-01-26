@@ -18,20 +18,21 @@ namespace Autopark_Web_Version.Models.Repositories
             connection = new SqlConnection(dbConnection);
         }     
 
-        public List<Orders> GetAll()
+        public async Task<IEnumerable<Orders>> GetAll()
         {
-            return connection.Query<Orders>("SELECT * FROM Orders").ToList();
+            return await connection.QueryAsync<Orders>("SELECT * FROM Orders");
             
         }
-        public void Create(Orders entity)
+        public async Task Create(Orders entity)
         {
             var sqlQuery = $"INSERT INTO Orders (VenicleId, Date) " +
                             "VALUES(@VenicleId, @Date)";
-            connection.Execute(sqlQuery, entity);
+            await connection.ExecuteAsync(sqlQuery, entity);
         }
-        public Orders Get(int id)
+        public async Task<Orders> Get(int id)
         {
-            return connection.Query<Orders>("SELECT * FROM Orders WHERE OrderId = @id", new { id }).FirstOrDefault();
+            var getOrderById = await connection.QueryAsync<Orders>("SELECT * FROM Orders WHERE OrderId = @id", new { id });
+            return getOrderById.FirstOrDefault();
         }
 
 
