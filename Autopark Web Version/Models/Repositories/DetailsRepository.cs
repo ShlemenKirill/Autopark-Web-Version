@@ -16,35 +16,36 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public void Create(Details entity)
+        public async Task Create(Details entity)
         {
             var sqlQuery = $"INSERT INTO Details (DetailName) " +
                             "VALUES(@DetailName)";
-            connection.Execute(sqlQuery, entity);
+            await connection.ExecuteAsync(sqlQuery, entity);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var sqlQuery = "DELETE FROM Details WHERE DetailId = @id";
-            connection.Execute(sqlQuery, new { id });
+            await connection.ExecuteAsync(sqlQuery, new { id });
         }
 
-        public Details Get(int id)
+        public async Task<Details> Get(int id)
         {
-            return connection.Query<Details>("SELECT * FROM Details WHERE DetailId = @id", new { id }).FirstOrDefault();
+            var detailById = await connection.QueryAsync<Details>("SELECT * FROM Details WHERE DetailId = @id", new { id });
+            return detailById.FirstOrDefault();
         }
 
-        public List<Details> GetAll()
+        public async Task<IEnumerable<Details>> GetAll()
         {
-            return connection.Query<Details>("SELECT * FROM Details").ToList();
+            return await connection.QueryAsync<Details>("SELECT * FROM Details");
         }
 
-        public void Update(Details entity)
+        public async Task Update(Details entity)
         {
             var sqlQuery = "UPDATE Details SET " +
                             "DetailName = @DetailName " +                            
                             "WHERE DetailId = @DetailId";
-            connection.Execute(sqlQuery, entity);
+            await connection.ExecuteAsync(sqlQuery, entity);
         }
 
         #region Disposable

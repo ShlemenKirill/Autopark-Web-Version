@@ -16,10 +16,9 @@ namespace Autopark_Web_Version.Controllers
             repo = r;            
         }
 
-        public ActionResult Index()
-        {         
-            
-            return View(repo.GetAll());
+        public async Task<ActionResult> Index()
+        {      
+            return View(await repo.GetAll());
         }
 
         public ActionResult Create()
@@ -28,47 +27,47 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Details details)
+        public async Task<ActionResult> Create(Details details)
         {
-            repo.Create(details);
+            await repo.Create(details);
             return RedirectToAction("Index");
         }
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            Details details = repo.Get(id);
+            Details details = await repo.Get(id);
             if (details != null)
                 return View(details);
             return NotFound();
         }
 
         [HttpPost]
-        public ActionResult Edit(Details details)
+        public async Task<ActionResult> Edit(Details details)
         {
-            repo.Update(details);
+            await repo.Update(details);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         [ActionName("Delete")]
-        public ActionResult ConfirmDelete(int id)
+        public async Task<ActionResult> ConfirmDelete(int id)
         {
-            Details details = repo.Get(id);
+            Details details = await repo.Get(id);
             if (details != null)
                 return View(details);
             return NotFound();
         }
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            repo.Delete(id);
+            await repo.Delete(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         [ActionName("Details")]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            Details details = repo.Get(id);            
+            Details details = await repo.Get(id);            
             if (details != null)
                 return View(details);
             return NotFound();
