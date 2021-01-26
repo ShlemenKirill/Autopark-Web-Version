@@ -17,9 +17,9 @@ namespace Autopark_Web_Version.Controllers
             this.orders = orders;
             this.venicle = venicle;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(ordersView.GetAll());
+            return View(await ordersView.GetAll());
         }
 
         public async Task<ActionResult> Create()
