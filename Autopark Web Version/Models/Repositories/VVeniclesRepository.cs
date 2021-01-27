@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VVeniclesRepository : IVVeniclesRepository<VVEnicles>
+    public class VVeniclesRepository : IVVeniclesRepository<VVEnicles>, IDisposable
     {
         readonly IDbConnection connection = null;
         public VVeniclesRepository(string dbConnection)
@@ -83,5 +83,39 @@ namespace Autopark_Web_Version.Models.Repositories
                 );           
 
         }
+
+        #region Disposable
+
+        private bool _disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposedValue)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                connection.Dispose();
+            }
+
+            _disposedValue = true;
+        }
+
+        ~VVeniclesRepository()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+
+        #endregion Disposable
     }
 }

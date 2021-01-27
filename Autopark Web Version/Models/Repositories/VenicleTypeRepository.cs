@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VenicleTypeRepository : IVenicleTypeRepository<VenicleType>
+    public class VenicleTypeRepository : IVenicleTypeRepository<VenicleType>, IDisposable
     {        
         readonly IDbConnection connection = null;
         public VenicleTypeRepository(string dbConnection)
