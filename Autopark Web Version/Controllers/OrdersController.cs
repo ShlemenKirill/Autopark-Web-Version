@@ -2,36 +2,37 @@
 using Microsoft.AspNetCore.Mvc;
 using Autopark_Web_Version.Models.Interfaces;
 using Autopark_Web_Version.Models;
+using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Controllers
 {
     public class OrdersController : Controller
     {
-        IReadOnlyRepository<VOrders> ordersView;
+        IVOrdersRepository<VOrders> ordersView;
         IOrdersRepository<Orders> orders;
         IVenicleRepository<Venicles> venicle;
-        public OrdersController(IReadOnlyRepository<VOrders> ordersView, IOrdersRepository<Orders> orders, IVenicleRepository<Venicles> venicle)
+        public OrdersController(IVOrdersRepository<VOrders> ordersView, IOrdersRepository<Orders> orders, IVenicleRepository<Venicles> venicle)
         {
             this.ordersView = ordersView;
             this.orders = orders;
             this.venicle = venicle;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(ordersView.GetAll());
+            return View(await ordersView.GetAll());
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.Venicles = venicle.GetAll();
+            ViewBag.Venicles = await venicle.GetAll();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Orders order)
+        public async Task<ActionResult> Create(Orders order)
         {
            
-            orders.Create(order);
+            await orders.Create(order);
             return RedirectToAction("Index");
         }
     }

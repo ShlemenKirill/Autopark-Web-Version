@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
@@ -16,16 +17,16 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public void Create(OrderDetails entity)
+        public async Task Create(OrderDetails entity)
         {
             var sqlQuery = $"INSERT INTO OrderDetails (OrderId, VenicleId, DetailId, Quantity) " +
                             "VALUES(@OrderId, @VenicleId, @DetailId, @Quantity)";
-            connection.Execute(sqlQuery, entity);
+            await connection.ExecuteAsync(sqlQuery, entity);
         }
 
-        public List<OrderDetails> GetAllByOrderId(int id)
+        public async Task<IEnumerable<OrderDetails>> GetAllByOrderId(int id)
         {
-            return connection.Query<OrderDetails>("SELECT * FROM OrderDetails WHERE OrderId = @id", new { id }).ToList();
+            return await connection.QueryAsync<OrderDetails>("SELECT * FROM OrderDetails WHERE OrderId = @id", new { id });
         }        
 
         #region Disposable

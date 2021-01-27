@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VOrdersRepository : IReadOnlyRepository<VOrders>
+    public class VOrdersRepository : IVOrdersRepository<VOrders>
     {
         readonly IDbConnection connection = null;
         public VOrdersRepository(string dbConnection)
         {
             connection = new SqlConnection(dbConnection);
         }
-        public IEnumerable<VOrders> GetAll()
+        public async Task<IEnumerable<VOrders>> GetAll()
         {
-            return connection.Query<VOrders>
+            return await connection.QueryAsync<VOrders>
                 (
                 "SELECT " +
                 "Orders.OrderId, " +
@@ -27,12 +27,7 @@ namespace Autopark_Web_Version.Models.Repositories
                 "Orders.Date " +
                 "FROM[Orders] INNER JOIN[Venicles] " +
                 "ON Orders.VenicleId = Venicles.VenicleId"
-                ).ToList();
-        }
-
-        public IEnumerable<VOrders> SortBy(string order)
-        {
-            throw new NotImplementedException();
+                );
         }
     }
 }

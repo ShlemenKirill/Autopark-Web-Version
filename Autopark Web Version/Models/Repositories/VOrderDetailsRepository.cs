@@ -17,10 +17,10 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public IEnumerable<VOrderDetails> GetAllById(int id)
+        public async Task<IEnumerable<VOrderDetails>> GetAllById(int id)
         {
             
-            return connection.Query<VOrderDetails>
+            return  await connection.QueryAsync<VOrderDetails>
                 (
                 "SELECT " +
                 "OrderDetails.OrderDetailId, " +
@@ -32,8 +32,8 @@ namespace Autopark_Web_Version.Models.Repositories
                 "ON OrderDetails.OrderDetailId = Details.DetailId " +
                 "INNER JOIN[Venicles] " +
                 "ON OrderDetails.VenicleId = Venicles.VenicleId " +
-                "WHERE OrderId = @id", new { id }               
-                ).ToList();
+                "WHERE OrderId = @id", new { id }             
+                );
             
         }
     }

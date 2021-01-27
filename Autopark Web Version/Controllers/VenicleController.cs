@@ -12,23 +12,23 @@ namespace Autopark_Web_Version.Controllers
     public class VenicleController : Controller
     {
         IVenicleRepository<Venicles> repo;
-        IReadOnlyRepository<VVEnicles> type;
-        public VenicleController(IVenicleRepository<Venicles> r, IReadOnlyRepository<VVEnicles> t)
+        IVVeniclesRepository<VVEnicles> type;
+        public VenicleController(IVenicleRepository<Venicles> r, IVVeniclesRepository<VVEnicles> t)
         {
             repo = r;
             type = t;
         }
 
-        public ActionResult Index(string sortParam)
+        public async Task<ActionResult> Index(string sortParam)
         {            
             ViewBag.VenicleTypeSortParam = sortParam == "VenicleType" ? "VenicleType_desc" : "VenicleType";
             ViewBag.ModelNameSortParam = sortParam == "ModelName" ? "ModelName_desc" : "ModelName";
             ViewBag.MileageSortParam = sortParam == "Mileage" ? "Mileage_desc" : "Mileage";            
 
-            var sort = type.GetAll();
+            var sort = await type.GetAll();
             if (sortParam != null)
             {
-                sort = type.SortBy(sortParam);
+                sort = await type.SortBy(sortParam);
             }
             return View(sort.ToList());            
         }

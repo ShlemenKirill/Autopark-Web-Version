@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Interfaces
 {
-    public interface IOrdersRepository<TEntity>
-    {        
+    public interface IVVeniclesRepository<TEntity> where TEntity : class
+    {
         Task<IEnumerable<TEntity>> GetAll();
-        public Task Create(TEntity entity);
-        Task<TEntity> Get(int id);
+        Task<IEnumerable<TEntity>> SortBy(string order);
     }
 }
