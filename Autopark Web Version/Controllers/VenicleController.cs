@@ -78,10 +78,9 @@ namespace Autopark_Web_Version.Controllers
         [ActionName("Details")]
         public async Task<ActionResult> Details(int id)
         {
-            Venicles venicles = await repo.Get(id);
-            repo.CalculateTaxPerMounth(id);
-            ViewData["TaxPerMounth"] = repo.CalculateTaxPerMounth(id);
-            ViewData["MaxKilometers"] = repo.CalculateMaxKilometers(id);
+            Venicles venicles = await repo.Get(id);            
+            ViewData["TaxPerMounth"] = await repo.CalculateTaxPerMounth(id);
+            ViewData["MaxKilometers"] = await repo.CalculateMaxKilometers(id);
             if (venicles != null)
                 return View(venicles);
             return NotFound();
