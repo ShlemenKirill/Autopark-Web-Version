@@ -8,14 +8,14 @@ namespace Autopark_Web_Version.Controllers
 {
     public class OrdersController : Controller
     {
-        IVVenicleRepository<VOrders> ordersView;
-        IOrdersRepository<Orders> orders;
-        IVenicleRepository<Venicles> venicle;
-        public OrdersController(IVVenicleRepository<VOrders> ordersView, IOrdersRepository<Orders> orders, IVenicleRepository<Venicles> venicle)
+        readonly IVVenicleRepository<VOrders> ordersView;
+        readonly IOrdersRepository<Orders> orders;
+        readonly IVenicleRepository<Venicles> venicles;
+        public OrdersController(IVVenicleRepository<VOrders> ordersView, IOrdersRepository<Orders> orders, IVenicleRepository<Venicles> venicles)
         {
             this.ordersView = ordersView;
             this.orders = orders;
-            this.venicle = venicle;
+            this.venicles = venicles;
         }
         public async Task<ActionResult> Index()
         {
@@ -24,7 +24,7 @@ namespace Autopark_Web_Version.Controllers
 
         public async Task<ActionResult> Create()
         {
-            ViewBag.Venicles = await venicle.GetAll();
+            ViewBag.Venicles = await venicles.GetAll();
             return View();
         }
 
