@@ -33,7 +33,7 @@ namespace Autopark_Web_Version
             services.AddScoped<IDetailsRepository<Details>, DetailsRepository>(provider => new DetailsRepository(connectionString));
             services.AddScoped<IOrdersRepository<Orders>, OrdersRepository>(provider => new OrdersRepository(connectionString));
             services.AddScoped<IOrderDetailsRepository<OrderDetails>, OrderDetailsRepository>(provider => new OrderDetailsRepository(connectionString));
-            services.AddScoped<IVVenicleRepository<VOrders>, VOrdersRepository>(provider => new VOrdersRepository(connectionString));
+            services.AddScoped<IVOrdersRepository<VOrders>, VOrdersRepository>(provider => new VOrdersRepository(connectionString));
             services.AddScoped<IVVenicleRepository<VVEnicles>, VVeniclesRepository>(provider => new VVeniclesRepository(connectionString));
             services.AddScoped<IVOrderDetailsRepository<VOrderDetails>, VOrderDetailsRepository>(provider => new VOrderDetailsRepository(connectionString));
             services.AddControllersWithViews();  

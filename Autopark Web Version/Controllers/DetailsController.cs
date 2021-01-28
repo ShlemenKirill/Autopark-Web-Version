@@ -10,7 +10,7 @@ namespace Autopark_Web_Version.Controllers
 {
     public class DetailsController : Controller
     {
-        IDetailsRepository<Details> details;        
+        readonly IDetailsRepository<Details> details;        
         public DetailsController(IDetailsRepository<Details> details)
         {
             this.details = details;            

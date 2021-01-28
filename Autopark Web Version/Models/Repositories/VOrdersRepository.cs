@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VOrdersRepository : IVVenicleRepository<VOrders>
+    public class VOrdersRepository : IVOrdersRepository<VOrders>
     {
         readonly IDbConnection connection = null;
         public VOrdersRepository(string dbConnection)
@@ -28,11 +28,6 @@ namespace Autopark_Web_Version.Models.Repositories
                 "FROM[Orders] INNER JOIN[Venicles] " +
                 "ON Orders.VenicleId = Venicles.VenicleId"
                 );
-        }
-
-        public async Task<IEnumerable<VOrders>> SortBy(string order)
-        {
-            throw new NotImplementedException();
         }
     }
 }
