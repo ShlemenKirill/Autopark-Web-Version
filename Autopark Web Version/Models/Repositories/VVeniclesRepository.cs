@@ -17,9 +17,9 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public IEnumerable<VVEnicles> GetAll()
+        public async Task<IEnumerable<VVEnicles>> GetAll()
         {
-            return connection.Query<VVEnicles>
+            return await connection.QueryAsync<VVEnicles>
                 (
                 "SELECT " +
                 "Venicles.VenicleId, " +
@@ -35,15 +35,15 @@ namespace Autopark_Web_Version.Models.Repositories
                 "Venicles.Consumption " +
                 "FROM[Venicles] INNER JOIN[VenicleType] " +
                 "ON Venicles.VeniclesTypeId = VenicleType.VenicleTypeId"
-                ).ToList();
+                );
         }
 
-        public IEnumerable<VVEnicles> SortBy(string order)
+        public async Task<IEnumerable<VVEnicles>> SortBy(string order)
         {
             var str = order.Split("_");
             if (str.Length == 1)
             {
-                return connection.Query<VVEnicles>
+                return await connection.QueryAsync<VVEnicles>
                 (
                 "SELECT " +
                 "Venicles.VenicleId, " +
@@ -60,10 +60,10 @@ namespace Autopark_Web_Version.Models.Repositories
                 "FROM[Venicles] INNER JOIN[VenicleType] " +
                 "ON Venicles.VeniclesTypeId = VenicleType.VenicleTypeId " +
                 "ORDER BY " +  str[0]               
-                ).ToList();
+                );
                 
             }
-            return connection.Query<VVEnicles>
+            return await connection.QueryAsync<VVEnicles>
                 (
                 "SELECT " +
                 "Venicles.VenicleId, " +
@@ -80,7 +80,7 @@ namespace Autopark_Web_Version.Models.Repositories
                 "FROM[Venicles] INNER JOIN[VenicleType] " +
                 "ON Venicles.VeniclesTypeId = VenicleType.VenicleTypeId " +
                 "ORDER BY " + str[0] + " " + str[1]
-                ).ToList();           
+                );           
 
         }
     }

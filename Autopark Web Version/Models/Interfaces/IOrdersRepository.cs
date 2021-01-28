@@ -7,8 +7,8 @@ namespace Autopark_Web_Version.Models.Interfaces
 {
     public interface IOrdersRepository<TEntity>
     {        
-        List<TEntity> GetAll();
-        public void Create(TEntity entity);
-        TEntity Get(int id);
+        Task<IEnumerable<TEntity>> GetAll();
+        public Task Create(TEntity entity);
+        Task<TEntity> Get(int id);
     }
 }

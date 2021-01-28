@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Interfaces
 {
-    public interface IReadOnlyRepository<T> where T : class
+    public interface IReadOnlyRepository<TEntity> where TEntity : class
     {
-        IEnumerable<T> GetAll();
-        public IEnumerable<T> SortBy(string order);
+        Task<IEnumerable<TEntity>> GetAll();
+        public Task<IEnumerable<TEntity>> SortBy(string order);
     }
 }

@@ -21,26 +21,26 @@ namespace Autopark_Web_Version.Controllers
             this.orders = orders;
         }        
 
-        public ActionResult Create(int id)
+        public async Task<ActionResult> Create(int id)
         {
-            ViewBag.Details = details.GetAll();
-            ViewBag.Order = orders.Get(id);
+            ViewBag.Details = await details.GetAll();
+            ViewBag.Order = await orders.Get(id);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(OrderDetails orderDetail)
+        public async Task<ActionResult> Create(OrderDetails orderDetail)
         {
-            orderDetails.Create(orderDetail);
+            await orderDetails.Create(orderDetail);
             return Redirect("/Orders/Index");
         }
 
         [HttpGet]
         [ActionName("Details")]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            ViewBag.Details = details.GetAll();
-            var orderDetail = orderDetails.GetAllByOrderId(id);
+            ViewBag.Details = await details.GetAll();
+            var orderDetail = await orderDetails.GetAllByOrderId(id);
             if (orderDetails != null)
                 return View(orderDetail);
             return NotFound();

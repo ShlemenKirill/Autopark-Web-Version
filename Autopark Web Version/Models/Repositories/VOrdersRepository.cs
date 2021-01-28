@@ -17,9 +17,9 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public IEnumerable<VOrders> GetAll()
+        public async Task<IEnumerable<VOrders>> GetAll()
         {
-            return connection.Query<VOrders>
+            return await connection.QueryAsync<VOrders>
                 (
                 "SELECT " +
                 "Orders.OrderId, " +
@@ -27,10 +27,10 @@ namespace Autopark_Web_Version.Models.Repositories
                 "Orders.Date " +
                 "FROM[Orders] INNER JOIN[Venicles] " +
                 "ON Orders.VenicleId = Venicles.VenicleId"
-                ).ToList();
+                );
         }
 
-        public IEnumerable<VOrders> SortBy(string order)
+        public async Task<IEnumerable<VOrders>> SortBy(string order)
         {
             throw new NotImplementedException();
         }
