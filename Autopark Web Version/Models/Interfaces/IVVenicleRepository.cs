@@ -8,6 +8,6 @@ namespace Autopark_Web_Version.Models.Interfaces
     public interface IVVenicleRepository<TEntity> where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAll();
-        public Task<IEnumerable<TEntity>> SortBy(string order);
+        Task<IEnumerable<TEntity>> SortBy(string order);
     }
 }

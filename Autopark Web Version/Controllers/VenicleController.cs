@@ -27,10 +27,10 @@ namespace Autopark_Web_Version.Controllers
 
             if (sortingParameter != null)
             {
-                sortingResult = await veniclesViewRepository.SortBy(sortingParameter);
+                return View(await veniclesViewRepository.SortBy(sortingParameter));
             }
 
-            return View(sortingResult.ToList());            
+            return View(sortingResult);            
         }
         public ActionResult Create()
         {
@@ -79,8 +79,8 @@ namespace Autopark_Web_Version.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var currentVenicle = await veniclesRepository.Get(id);            
-            ViewData["TaxPerMounth"] = veniclesRepository.CalculateTaxPerMounth(id);
-            ViewData["MaxKilometers"] = veniclesRepository.CalculateMaxKilometers(id);
+            ViewData["TaxPerMounth"] = await veniclesRepository.CalculateTaxPerMounth(id);
+            ViewData["MaxKilometers"] = await veniclesRepository.CalculateMaxKilometers(id);
 
             if (currentVenicle != null)
                 return View(currentVenicle);
