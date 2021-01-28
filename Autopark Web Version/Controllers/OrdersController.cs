@@ -29,9 +29,9 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Orders order)
+        public async Task<ActionResult> Create(Orders newOrder)
         {
-            await orders.Create(order);
+            await orders.Create(newOrder);
             return RedirectToAction("Index");
         }
     }

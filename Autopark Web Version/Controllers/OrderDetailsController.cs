@@ -26,9 +26,9 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(OrderDetails orderDetail)
+        public async Task<ActionResult> Create(OrderDetails newOrder)
         {
-            await orderDetails.Create(orderDetail);
+            await orderDetails.Create(newOrder);
             return Redirect("/Orders/Index");
         }
 
@@ -36,9 +36,9 @@ namespace Autopark_Web_Version.Controllers
         public async Task<ActionResult> Details(int id)
         {
             ViewBag.Details = await details.GetAll();
-            var orderDetail = await orderDetails.GetAllByOrderId(id);
+            var currentOrderDetails = await orderDetails.GetAllByOrderId(id);
             if (orderDetails != null)
-                return View(orderDetail);
+                return View(currentOrderDetails);
             return NotFound();
         }
     }

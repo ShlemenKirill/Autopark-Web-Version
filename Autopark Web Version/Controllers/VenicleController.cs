@@ -38,17 +38,17 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Venicles venicles)
+        public async Task<ActionResult> Create(Venicles newVenicle)
         {
-            await veniclesRepository.Create(venicles);
+            await veniclesRepository.Create(newVenicle);
             return RedirectToAction("Index");
         }
         public async Task<ActionResult> Edit(int id)
         {
-            Venicles venicles = await veniclesRepository.Get(id);
+            var currentVenicle = await veniclesRepository.Get(id);
 
-            if (venicles != null)
-                return View(venicles);
+            if (currentVenicle != null)
+                return View(currentVenicle);
             return NotFound();            
         }
 
@@ -62,10 +62,10 @@ namespace Autopark_Web_Version.Controllers
         [HttpGet]        
         public async Task<ActionResult> ConfirmDelete(int id)
         {
-            Venicles venicles = await veniclesRepository.Get(id);
+            var deletingVenicle = await veniclesRepository.Get(id);
 
-            if (venicles != null)
-                return View(venicles);
+            if (deletingVenicle != null)
+                return View(deletingVenicle);
             return NotFound();
         }
         [HttpPost]
@@ -78,12 +78,12 @@ namespace Autopark_Web_Version.Controllers
         [HttpGet]       
         public async Task<ActionResult> Details(int id)
         {
-            Venicles venicles = await veniclesRepository.Get(id);            
+            var currentVenicle = await veniclesRepository.Get(id);            
             ViewData["TaxPerMounth"] = veniclesRepository.CalculateTaxPerMounth(id);
             ViewData["MaxKilometers"] = veniclesRepository.CalculateMaxKilometers(id);
 
-            if (venicles != null)
-                return View(venicles);
+            if (currentVenicle != null)
+                return View(currentVenicle);
             return NotFound();
         }
 
