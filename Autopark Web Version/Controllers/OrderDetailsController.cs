@@ -11,9 +11,9 @@ namespace Autopark_Web_Version.Controllers
 {
     public class OrderDetailsController : Controller
     {
-        IOrderDetailsRepository<OrderDetails> orderDetails;        
-        IDetailsRepository<Details> details;
-        IOrdersRepository<Orders> orders;
+        readonly IOrderDetailsRepository<OrderDetails> orderDetails;
+        readonly IDetailsRepository<Details> details;
+        readonly IOrdersRepository<Orders> orders;
         public OrderDetailsController(IOrderDetailsRepository<OrderDetails> orderDetails, IDetailsRepository<Details> details, IOrdersRepository<Orders> orders)
         {
             this.orderDetails = orderDetails;            
@@ -35,8 +35,7 @@ namespace Autopark_Web_Version.Controllers
             return Redirect("/Orders/Index");
         }
 
-        [HttpGet]
-        [ActionName("Details")]
+        [HttpGet]        
         public async Task<ActionResult> Details(int id)
         {
             ViewBag.Details = await details.GetAll();
