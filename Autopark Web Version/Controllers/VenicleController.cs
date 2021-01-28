@@ -2,8 +2,6 @@
 using Autopark_Web_Version.Models.Interfaces;
 using Autopark_Web_Version.Models.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,26 +9,28 @@ namespace Autopark_Web_Version.Controllers
 {
     public class VenicleController : Controller
     {
-        IVenicleRepository<Venicles> repo;
-        IReadOnlyRepository<VVEnicles> type;
-        public VenicleController(IVenicleRepository<Venicles> r, IReadOnlyRepository<VVEnicles> t)
+        readonly IVenicleRepository<Venicles> veniclesRepository;
+        readonly IVVenicleRepository<VVEnicles> veniclesViewRepository;
+        public VenicleController(IVenicleRepository<Venicles> veniclesRepository, IVVenicleRepository<VVEnicles> veniclesViewRepository)
         {
-            repo = r;
-            type = t;
+            this.veniclesRepository = veniclesRepository;
+            this.veniclesViewRepository = veniclesViewRepository;
         }
 
-        public async Task<ActionResult> Index(string sortParam)
+        public async Task<ActionResult> Index(string sortingParameter)
         {            
-            ViewBag.VenicleTypeSortParam = sortParam == "VenicleType" ? "VenicleType_desc" : "VenicleType";
-            ViewBag.ModelNameSortParam = sortParam == "ModelName" ? "ModelName_desc" : "ModelName";
-            ViewBag.MileageSortParam = sortParam == "Mileage" ? "Mileage_desc" : "Mileage";            
+            ViewBag.VenicleTypeSortParam = sortingParameter == "VenicleType" ? "VenicleType_desc" : "VenicleType";
+            ViewBag.ModelNameSortParam = sortingParameter == "ModelName" ? "ModelName_desc" : "ModelName";
+            ViewBag.MileageSortParam = sortingParameter == "Mileage" ? "Mileage_desc" : "Mileage";            
 
-            var sort = await type.GetAll();
-            if (sortParam != null)
+            var sortingResult = await veniclesViewRepository.GetAll();
+
+            if (sortingParameter != null)
             {
-                sort = await type.SortBy(sortParam);
+                sortingResult = await veniclesViewRepository.SortBy(sortingParameter);
             }
-            return View(sort.ToList());            
+
+            return View(sortingResult.ToList());            
         }
         public ActionResult Create()
         {
@@ -38,52 +38,52 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Venicles venicles)
+        public async Task<ActionResult> Create(Venicles newVenicle)
         {
-            await repo.Create(venicles);
+            await veniclesRepository.Create(newVenicle);
             return RedirectToAction("Index");
         }
         public async Task<ActionResult> Edit(int id)
         {
-            Venicles venicles = await repo.Get(id);
-            if (venicles != null)
-                return View(venicles);
+            var currentVenicle = await veniclesRepository.Get(id);
+
+            if (currentVenicle != null)
+                return View(currentVenicle);
             return NotFound();            
         }
 
         [HttpPost]
         public async Task<ActionResult> Edit(Venicles venicles)
         {
-            await repo.Update(venicles);
+            await veniclesRepository.Update(venicles);
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
+        [HttpGet]        
         public async Task<ActionResult> ConfirmDelete(int id)
         {
-            Venicles venicles = await repo.Get(id);
-            if (venicles != null)
-                return View(venicles);
+            var deletingVenicle = await veniclesRepository.Get(id);
+
+            if (deletingVenicle != null)
+                return View(deletingVenicle);
             return NotFound();
         }
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
-            await repo.Delete(id);
+            await veniclesRepository.Delete(id);
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [ActionName("Details")]
+        [HttpGet]       
         public async Task<ActionResult> Details(int id)
         {
-            Venicles venicles = await repo.Get(id);
-            repo.CalculateTaxPerMounth(id);
-            ViewData["TaxPerMounth"] = repo.CalculateTaxPerMounth(id);
-            ViewData["MaxKilometers"] = repo.CalculateMaxKilometers(id);
-            if (venicles != null)
-                return View(venicles);
+            var currentVenicle = await veniclesRepository.Get(id);            
+            ViewData["TaxPerMounth"] = veniclesRepository.CalculateTaxPerMounth(id);
+            ViewData["MaxKilometers"] = veniclesRepository.CalculateMaxKilometers(id);
+
+            if (currentVenicle != null)
+                return View(currentVenicle);
             return NotFound();
         }
 

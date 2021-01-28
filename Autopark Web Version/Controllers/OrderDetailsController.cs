@@ -2,18 +2,15 @@
 using Autopark_Web_Version.Models.Interfaces;
 using Autopark_Web_Version.Models.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Controllers
 {
     public class OrderDetailsController : Controller
     {
-        IOrderDetailsRepository<OrderDetails> orderDetails;        
-        IDetailsRepository<Details> details;
-        IOrdersRepository<Orders> orders;
+        readonly IOrderDetailsRepository<OrderDetails> orderDetails;
+        readonly IDetailsRepository<Details> details;
+        readonly IOrdersRepository<Orders> orders;
         public OrderDetailsController(IOrderDetailsRepository<OrderDetails> orderDetails, IDetailsRepository<Details> details, IOrdersRepository<Orders> orders)
         {
             this.orderDetails = orderDetails;            
@@ -29,20 +26,19 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(OrderDetails orderDetail)
+        public async Task<ActionResult> Create(OrderDetails newOrder)
         {
-            await orderDetails.Create(orderDetail);
+            await orderDetails.Create(newOrder);
             return Redirect("/Orders/Index");
         }
 
-        [HttpGet]
-        [ActionName("Details")]
+        [HttpGet]        
         public async Task<ActionResult> Details(int id)
         {
             ViewBag.Details = await details.GetAll();
-            var orderDetail = await orderDetails.GetAllByOrderId(id);
+            var currentOrderDetails = await orderDetails.GetAllByOrderId(id);
             if (orderDetails != null)
-                return View(orderDetail);
+                return View(currentOrderDetails);
             return NotFound();
         }
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VOrderDetailsRepository : IVOrderDetailsRepository<VOrderDetails>
+    public class VOrderDetailsRepository : IVOrderDetailsRepository<VOrderDetails>, IDisposable
     {
         readonly IDbConnection connection = null;
         public VOrderDetailsRepository(string dbConnection)
@@ -36,5 +36,39 @@ namespace Autopark_Web_Version.Models.Repositories
                 );
             
         }
+
+        #region Disposable
+
+        private bool _disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposedValue)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                connection.Dispose();
+            }
+
+            _disposedValue = true;
+        }
+
+        ~VOrderDetailsRepository()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+
+        #endregion Disposable
     }
 }
