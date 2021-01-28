@@ -7,10 +7,10 @@ namespace Autopark_Web_Version.Models
 {
     public interface IVenicleTypeRepository<TEntity>
     {
-        void Create(TEntity entity);
-        void Delete(int id);
-        TEntity Get(int id);
-        List<TEntity> GetAll();
-        void Update(TEntity entity);
+        Task Create(TEntity entity);
+        Task Delete(int id);
+        Task<TEntity> Get(int id);
+        Task<IEnumerable<TEntity>> GetAll();
+        Task Update(TEntity entity);
     }
 }

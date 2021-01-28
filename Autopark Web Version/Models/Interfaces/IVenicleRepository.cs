@@ -12,8 +12,8 @@ namespace Autopark_Web_Version.Models
         Task<TEntity> Get(int id);
         Task<IEnumerable<TEntity>> GetAll();
         Task Update(TEntity entity);
-        public List<Venicles> SortBy(string order);
-        public double CalculateTaxPerMounth(int id);
-        public double CalculateMaxKilometers(int id);
+        Task<IEnumerable<Venicles>> SortBy(string order);
+        Task<double> CalculateTaxPerMounth(int id);
+        Task<double> CalculateMaxKilometers(int id);
     }
 }

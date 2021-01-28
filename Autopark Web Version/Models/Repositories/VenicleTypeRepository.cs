@@ -15,33 +15,34 @@ namespace Autopark_Web_Version.Models.Repositories
         {
             connection = new SqlConnection(dbConnection);
         }
-        public List<VenicleType> GetAll()
-        {            
-            return connection.Query<VenicleType>("SELECT * FROM VenicleType").ToList();
-        }
-        public void Create(VenicleType entity)
+        public async Task<IEnumerable<VenicleType>> GetAll()
         {
-            
+            return await connection.QueryAsync<VenicleType>("SELECT * FROM VenicleType");
+        }
+        public async Task Create(VenicleType entity)
+        {
+
             var sqlQuery = "INSERT INTO Venicles (Engine, ModelName,RegistrationNumber, Weight, Year, Color, Mileage,Tank) " +
-                "VALUES(@Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank)";
-            connection.Execute(sqlQuery, entity);
+                            "VALUES(@Engine, @ModelName, @RegistrationNumber, @Weight, @Year, @Color, @Mileage, @Tank)";
+            await connection.ExecuteAsync(sqlQuery, entity);
         }
 
-        public void Delete(int id)
-        {            
+        public async Task Delete(int id)
+        {
             var sqlQuery = "DELETE FROM Venicles WHERE Id = @id";
-            connection.Execute(sqlQuery, new { id });
+            await connection.ExecuteAsync(sqlQuery, new { id });
         }
 
-        public VenicleType Get(int id)
-        {            
-            return connection.Query<VenicleType>("SELECT * FROM Venicles WHERE Id = @id", new { id }).FirstOrDefault();
+        public async Task<VenicleType> Get(int id)
+        {
+            var getVenicleTypeById = await connection.QueryAsync<VenicleType>("SELECT * FROM Venicles WHERE Id = @id", new { id });
+            return getVenicleTypeById.FirstOrDefault();
         }
 
-        public void Update(VenicleType entity)
-        {            
+        public async Task Update(VenicleType entity)
+        {
             var sqlQuery = "UPDATE Users SET Name = @Name, Age = @Age WHERE Id = @Id";
-            connection.Execute(sqlQuery, entity);
+            await connection.ExecuteAsync(sqlQuery, entity);
         }        
 
         #region Disposable
