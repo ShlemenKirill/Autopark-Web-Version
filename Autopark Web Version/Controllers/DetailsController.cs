@@ -10,15 +10,15 @@ namespace Autopark_Web_Version.Controllers
 {
     public class DetailsController : Controller
     {
-        IDetailsRepository<Details> repo;        
-        public DetailsController(IDetailsRepository<Details> r)
+        IDetailsRepository<Details> details;        
+        public DetailsController(IDetailsRepository<Details> details)
         {
-            repo = r;            
+            this.details = details;            
         }
 
         public async Task<ActionResult> Index()
         {      
-            return View(await repo.GetAll());
+            return View(await details.GetAll());
         }
 
         public ActionResult Create()
@@ -27,23 +27,24 @@ namespace Autopark_Web_Version.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Details details)
+        public async Task<ActionResult> Create(Details newDetail)
         {
-            await repo.Create(details);
+            await details.Create(newDetail);
             return RedirectToAction("Index");
         }
+
         public async Task<ActionResult> Edit(int id)
         {
-            Details details = await repo.Get(id);
-            if (details != null)
-                return View(details);
+            var currentDetail = await details.Get(id);
+            if (currentDetail != null)
+                return View(currentDetail);
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(Details details)
+        public async Task<ActionResult> Edit(Details editedDetail)
         {
-            await repo.Update(details);
+            await details.Update(editedDetail);
             return RedirectToAction("Index");
         }
 
@@ -51,25 +52,25 @@ namespace Autopark_Web_Version.Controllers
         [ActionName("Delete")]
         public async Task<ActionResult> ConfirmDelete(int id)
         {
-            Details details = await repo.Get(id);
-            if (details != null)
-                return View(details);
+            var deletingDetail = await details.Get(id);
+            if (deletingDetail != null)
+                return View(deletingDetail);
             return NotFound();
         }
+
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
-            await repo.Delete(id);
+            await details.Delete(id);
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [ActionName("Details")]
+        [HttpGet]        
         public async Task<ActionResult> Details(int id)
         {
-            Details details = await repo.Get(id);            
-            if (details != null)
-                return View(details);
+            var currentDetail = await details.Get(id);            
+            if (currentDetail != null)
+                return View(currentDetail);
             return NotFound();
         }
     }
