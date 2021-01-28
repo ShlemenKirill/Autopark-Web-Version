@@ -8,10 +8,10 @@ namespace Autopark_Web_Version.Controllers
 {
     public class OrdersController : Controller
     {
-        IReadOnlyRepository<VOrders> ordersView;
+        IVVenicleRepository<VOrders> ordersView;
         IOrdersRepository<Orders> orders;
         IVenicleRepository<Venicles> venicle;
-        public OrdersController(IReadOnlyRepository<VOrders> ordersView, IOrdersRepository<Orders> orders, IVenicleRepository<Venicles> venicle)
+        public OrdersController(IVVenicleRepository<VOrders> ordersView, IOrdersRepository<Orders> orders, IVenicleRepository<Venicles> venicle)
         {
             this.ordersView = ordersView;
             this.orders = orders;

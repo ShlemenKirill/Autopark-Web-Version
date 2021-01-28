@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Autopark_Web_Version.Models.Repositories
 {
-    public class VVeniclesRepository : IReadOnlyRepository<VVEnicles>
+    public class VVeniclesRepository : IVVenicleRepository<VVEnicles>
     {
         readonly IDbConnection connection = null;
         public VVeniclesRepository(string dbConnection)
